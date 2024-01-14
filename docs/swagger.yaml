@@ -1,0 +1,122 @@
+definitions:
+  models.GenerateCaptchaResponse:
+    properties:
+      apiResponseCode:
+        type: string
+      apiResponseMessage:
+        type: string
+      captchaCode:
+        type: string
+    type: object
+  models.LoginUserReq:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  models.LoginUserRes:
+    properties:
+      accessToken:
+        type: string
+      apiResponseCode:
+        type: string
+      apiResponseMessage:
+        type: string
+    type: object
+  models.RegisterReq:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  models.RegisterRes:
+    properties:
+      apiResponseCode:
+        type: string
+      apiResponseMessage:
+        type: string
+    type: object
+host: 192.168.1.6:8000
+info:
+  contact: {}
+  title: GOLANG API
+  version: "1.0"
+paths:
+  /generateCaptcha:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GenerateCaptchaResponse'
+      tags:
+      - User
+  /login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Send request data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginUserReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.LoginUserRes'
+      tags:
+      - User
+  /refreshToken:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.LoginUserRes'
+      tags:
+      - User
+  /registerUser:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Send request data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RegisterRes'
+      tags:
+      - User
+swagger: "2.0"
